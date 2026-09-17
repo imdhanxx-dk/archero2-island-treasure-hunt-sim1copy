@@ -37,7 +37,7 @@ NEGATIVE_FIELD = (
     "deformed anatomy, extra limbs, extra tails, malformed paws, melting face, "
     "morphing features, warped eyes, mismatched eye colour, human face on an "
     "animal, text, letters, captions, subtitles, watermark, signature, logo, "
-    "user interface, progress bar, letterbox bars, moving mouth, open mouth, "
+    "user interface, progress bar, letterbox bars, music, background music, soundtrack, score, singing, humming, instruments, speech, narration, voice-over, dialogue, female voice, woman speaking, male voice, child voice, moving mouth, open mouth, "
     "talking animal, lip sync, speaking character, singing, subject out of "
     "frame, cropped subject, subject leaving frame, empty frame, static shot, "
     "slow motion throughout, chromatic aberration, glitch effect, VHS artifacts, "
@@ -51,61 +51,21 @@ STYLE = (
     "colour, subtle film grain, 24fps, widescreen 2.39:1"
 )
 
-# Describing the track in-prompt drives the ENERGY of the motion Veo generates.
-# The generated audio itself is discarded in the edit - see the workflow notes.
-MUSIC = {
-    "build_low": (
-        f"Fast, aggressive Japanese hip-hop instrumental at {BPM} BPM. Deep 808 "
-        "sub-bass on the downbeats, sparse syncopated trap hi-hats, a plucked koto "
-        "riff. Driving and forward-leaning, never calm or ambient."),
-    "build_high": (
-        f"Fast, aggressive Japanese hip-hop instrumental at {BPM} BPM, building "
-        "hard. Triplet hi-hat rolls accelerating, taiko drum hits getting louder "
-        "every bar, a rising synth riser, a snare roll. Relentless and tightening."),
-    "drop": (
-        f"{BPM} BPM. Distorted 808 bass, heavy taiko drums, "
-        "aggressive off-kilter syncopation, a distorted pitched-down koto riff as "
-        "the lead. Maximum energy, the loudest point of the whole track."),
-    "drop_peak": (
-        f"The beat at full intensity, {BPM} BPM, distorted 808 bass and heavy "
-        "taiko, with a huge sustained orchestral swell rising over the top of it."),
-    "half_time": (
-        f"The beat drops into half-time at {BPM} BPM. The drums gate and stutter, "
-        "the 808 bass holds long low notes, most layers stripped away. Tense and "
-        "spacious but still driving."),
-    "drop_two": (
-        f"The beat slams back in at full intensity, {BPM} BPM. Distorted 808 bass, "
-        "heavy taiko, triumphant and aggressive, the distorted koto riff back as "
-        "the lead. The second and biggest drop of the track."),
-    "stripped": (
-        f"The drums cut away to a single sparse {BPM} BPM kick and a low sustained "
-        "drone. Rain and space. Menacing, holding back."),
-    "cut_out": (
-        "The music stops completely and instantly. No drums, no bass, no "
-        "instruments. Only soft wind moving through grass and distant birdsong."),
-    "end_card": (
-        "Near silence, then a single clean four-note plucked koto melody played "
-        "once, gently and completely. One deep low sting underneath it at the end."),
-}
+# Veo bakes its generated audio into the clip and you cannot separate the music
+# from the sound effects afterwards. So we ask for NOTHING but diegetic sound
+# effects, and the music and voice-over go on in the edit where you control them.
 
-# Veo attributes quoted dialogue to a visible character and lip-syncs it.
-# Framing it as an unseen narrator, plus stating mouths stay shut, is the fix.
-def vo(line):
-    return (
-        f"A deep male narrator speaks in voice-over: \"{line}\" The narrator is "
-        "not a character in the scene and is never shown. His voice is recorded "
-        "separately and laid over the picture. Every animal on screen keeps its "
-        "mouth completely closed and still for the entire shot. Nothing visible "
-        "in the frame is speaking, and no mouth, jaw or muzzle moves at any "
-        "point. The voice is deep, gravelled, slow and heavy, with chest "
-        "resonance and a stone-room reverb tail.")
+NO_MUSIC_NO_VOICE = (
+    "There is absolutely no music in this clip of any kind - no soundtrack, no "
+    "score, no background music, no melody, no instruments, no singing and no "
+    "humming. There is also no speech of any kind - no narration, no voice-over, "
+    "no dialogue, no whispering and no breathing voice, male or female or child. "
+    "Nobody speaks and nothing is sung. Every animal on screen keeps its mouth "
+    "completely closed and still for the entire shot, and no mouth, jaw or muzzle "
+    "moves at any point. The only audio in this clip is the natural diegetic "
+    "sound of the scene itself, listed above, and nothing else."
+)
 
-
-NO_VO = (
-    "There is no narration and no dialogue anywhere in this clip. It plays on "
-    "music and sound effects alone. Every animal on screen keeps its mouth "
-    "completely closed and still for the entire shot. Nothing visible in the "
-    "frame is speaking, and no mouth, jaw or muzzle moves at any point.")
 
 LUMI = (
     "A small white cat named Lumi, ordinary cat proportions on four legs, fluffy "
@@ -143,7 +103,8 @@ CLIPS = [
              "The camera keeps him centred and never loses him.",
         light="Warm golden hour backlight, long shadows across the grass, visible "
               "god-rays, glowing pollen drifting through the air.",
-        audio=MUSIC["build_low"] + " " + vo("Ten stars. One keeper."),
+        audio=("Wind moving steadily through tall grass. Fast light footpads running on dry soil. The long scarf snapping and fluttering in the airflow behind him. Distant birdsong. Everything open and airy. "
+               + NO_MUSIC_NO_VOICE),
         note="The only warm clip. Its last frame seeds clip 2.",
     ),
     dict(
@@ -167,9 +128,8 @@ CLIPS = [
         light="Warm light draining away to near-total darkness. By the end the "
               "only light is the last dying colour of the scarf rings and a cold "
               "rim highlight on his white fur.",
-        audio=MUSIC["build_high"] + " " + vo("They all left him.") +
-              " In the final second the music stops dead and there is complete "
-              "silence.",
+        audio=("The open wind dies away and is replaced by the deep hollow room tone of an enormous stone chamber. Faint electrical fizzing as each light fails. A low stone rumble building underneath. The final second is near-total silence. "
+               + NO_MUSIC_NO_VOICE),
         note="Ends on near-black and silence. That gap is what makes clip 3 hit.",
     ),
     dict(
@@ -191,8 +151,8 @@ CLIPS = [
              "it. The camera keeps him centred and never loses him.",
         light="Near-total darkness. He is lit only by the violet glow of his own "
               "eyes, the violet cracks across his body, and the gem in his chest.",
-        audio="The clip opens with two seconds of complete silence and no sound "
-              "at all, then the beat drops hard. " + MUSIC["drop"] + " " + NO_VO,
+        audio=("The dead air of a vast underground stone hall. A single drip of water far away. Very large, slow, heavy footfalls on stone, unhurried. A deep low resonant hum rising from the gem. Fine dust settling. "
+               + NO_MUSIC_NO_VOICE),
         note="THE reveal. This is the shot the whole teaser is built around. "
              "Generate it the most times.",
     ),
@@ -221,8 +181,8 @@ CLIPS = [
         light="Violent gold and violet light in the dark, hard rim lighting, "
               "coloured light streaking past the lens, then a wide clear night "
               "sky with ten glowing trails drawn across it.",
-        audio=MUSIC["drop_peak"] + " The biggest impact in the track lands at the "
-              "moment the ten lights burst out of the scarf. " + NO_VO,
+        audio=("Stone cracking and shattering. One enormous heavy impact. A long high glassy tearing sound as the scarf rips open. Then a sudden rush of moving air as the camera climbs, and open high-altitude wind. "
+               + NO_MUSIC_NO_VOICE),
         note="Busiest clip. If it drifts, generate the fight and the sky as two "
              "separate 8s clips and cut them together.",
     ),
@@ -249,8 +209,8 @@ CLIPS = [
         light="Aurora green and violet over the snow, hard orange firelight in the "
               "canyon, saturated turquoise glow in the jungle. Each region lit "
               "entirely by its own colour.",
-        audio=MUSIC["half_time"] + " " +
-              vo("Ten homelands. Every one of them breaking."),
+        audio=("High wind at altitude throughout. Ice groaning and settling over the frozen valley. The low steady roar of open fire over the canyon. Dense layered insect and frog noise over the jungle. "
+               + NO_MUSIC_NO_VOICE),
         note="No characters, so this one is safe from drift. Good clip to "
              "over-generate cheaply.",
     ),
@@ -274,7 +234,8 @@ CLIPS = [
              "centre and never loses him.",
         light="Brilliant warm gold light radiating from the cat himself against a "
               "near-black background, hard rim lighting, the gold shield glowing.",
-        audio=MUSIC["drop_two"] + " " + NO_VO,
+        audio=("A low sustained roar of energy pressing against him. Stone fragments clattering and skittering across the ground. A bright sustained ringing tone from the shield of light, like a struck glass rim held. "
+               + NO_MUSIC_NO_VOICE),
         note="His power moment. This is the shot that has to make people want to "
              "play as him. Spend takes here.",
     ),
@@ -298,9 +259,8 @@ CLIPS = [
         light="Near-total darkness and rain. He is lit only by the violet glow of "
               "his eyes, the cracks across his body and the gem in his chest, with "
               "rain catching that violet light as it falls.",
-        audio=MUSIC["stripped"] + " Heavy rain throughout. " +
-              vo("Something has followed him since the first night. It has never "
-                 "once attacked."),
+        audio=("Heavy rain falling on wet stone and standing water throughout. Water running off into the roadside. Slow, heavy, deliberate footfalls through puddles. A faint hiss where the rain touches him and turns to steam. "
+               + NO_MUSIC_NO_VOICE),
         note="Menace, not action. The restraint here is what makes clip 6 and the "
              "end card land.",
     ),
@@ -325,7 +285,8 @@ CLIPS = [
              "the torn scarf both clearly inside the frame. The camera keeps him "
              "centred and never loses him.",
         light="Pale, flat, desaturated morning light with no warmth in it at all.",
-        audio=MUSIC["cut_out"] + " " + vo("Find them."),
+        audio=("Soft wind moving through meadow grass. Distant birdsong. His own quick unsteady breathing. Small dry metallic clicks as his paw touches each empty silver ring. Otherwise very quiet. "
+               + NO_MUSIC_NO_VOICE),
         note="The silence after two drops is what sells the loss. Keep the grade "
              "pale - do not put warmth back in.",
     ),
@@ -352,8 +313,8 @@ CLIPS = [
              "into those areas afterwards. Nothing enters or crosses the frame.",
         light="A single warm gold light source at the centre, falling off quickly "
               "into pure black.",
-        audio=MUSIC["end_card"] + " " +
-              vo("And when you remember - find me."),
+        audio=("Near-total silence. A faint low room tone. One soft single chime as the gold light blooms outward, then quiet. "
+               + NO_MUSIC_NO_VOICE),
         note="A CLEAN PLATE. The FUREVER logo and the PLAY NOW button are "
              "composited over this in the edit - never let Veo render text. Keep "
              "the top and bottom of the frame empty.",
@@ -489,33 +450,83 @@ HOW TO RUN IT IN FLOW
     garbled glyphs every time. Full end-card spec is at the bottom of this
     file.
 
-ABOUT THE AUDIO
+AUDIO IS NOT GENERATED. READ THIS.
 
-  Veo 3 generates its own sound from the AUDIO section, and the music
-  description is there mostly to drive the ENERGY OF THE MOTION - describe a
-  fast beat and Veo animates faster. But the generated audio will NOT be
-  continuous across five separate clips.
+  Veo bakes its own audio into the clip and you CANNOT separate its music from
+  its sound effects afterwards - they come down as one mixed track. It also
+  picks its own narrator voice, which is why you got a woman reading it.
 
-  So: generate with the audio described, then MUTE the generated audio in the
-  edit and lay one continuous 40-second track underneath. Keep any generated
-  impact SFX you like as a separate layer.
+  So every prompt below asks for DIEGETIC SOUND EFFECTS ONLY, and states in
+  plain terms that there is no music, no score, no singing and no speech of any
+  kind, male or female. What you get back is a clean effects layer you can
+  actually use - wind, rain, footfalls, stone, the scarf tearing.
 
-  Track brief: 150 BPM, fast aggressive Japanese hip-hop / trap. Deep 808
-  sub-bass, syncopated hi-hats, taiko drums, a plucked koto riff as the hook.
+  The music and the voice go on in the EDIT, where you control them.
 
-    0:00  sparse, koto motif stated clean
-    0:08  build, hi-hat rolls accelerating, taiko rising
-    0:16  TOTAL SILENCE for 2s, then DROP ONE - Noctra
-    0:24  drop continues, biggest impact on the Homing
-    0:32  half-time break, stripped back, the broken world
+  If a clip still comes back with music or a voice, regenerate it. Do not try
+  to fix it in post - it cannot be unmixed.
+
+"""
+    + "#" * 78 + """
+#  THE MUSIC - license or commission one continuous 72-second track
+""" + "#" * 78 + """
+
+  150 BPM. Fast, aggressive Japanese hip-hop / trap. Deep 808 sub-bass,
+  syncopated hi-hats, taiko drums, a plucked koto riff as the hook. Two drops.
+
+    0:00  sparse, the koto motif stated clean and alone
+    0:08  build - hi-hat rolls accelerating, taiko rising underneath
+    0:16  TOTAL SILENCE for 2 seconds, then DROP ONE - Noctra
+    0:24  drop continues, biggest single impact on the Homing
+    0:32  half-time break, stripped back, spacious
     0:40  DROP TWO - the biggest one, Lumi's power moment
-    0:48  stripped to a single kick and rain, menace
-    0:56  everything cuts out dead, silence for 8s
-    1:04  the koto motif once more, clean, then a low sting
+    0:48  stripped to a single kick and rain, menace, holding back
+    0:56  everything cuts out dead - 8 full seconds of no music
+    1:04  the koto motif once more, clean, then one low sting
 
-  The one idea worth keeping: the koto riff is the four-note lullaby Noctra
-  wrote for Lumi. The drop is the same four notes distorted and pitched down.
-  The hype and the story are the same melody.
+  The one idea worth keeping: that koto riff is the four-note lullaby Noctra
+  wrote for Lumi. Both drops are the same four notes, distorted and pitched
+  down. The hype and the story are the same melody.
+
+  Lay this under the whole cut. Keep the generated sound effects as a separate
+  layer underneath it and duck them about 4dB whenever the beat is playing.
+
+"""
+    + "#" * 78 + """
+#  THE VOICE-OVER - record or synthesise separately, then lay it over
+""" + "#" * 78 + """
+
+  DO NOT put these lines in a Veo prompt. That is what produced the wrong
+  voice. Record them yourself or run them through a TTS where you can audition
+  the voice, then place them on the timeline at these timecodes.
+
+  VOICE DIRECTION
+    Deep adult male. Heavy chest resonance, gravel in the bottom end.
+    Close-mic'd with audible breath. Slow and weighted - every word lands like
+    something heavy being set down. Not a hype-man, not a movie-trailer boom.
+    He is remembering, not announcing.
+
+    Track it twice and pitch the second take a full octave down underneath the
+    first at about -12dB, so there is a floor beneath the voice you feel more
+    than you hear it. Stone-room reverb tail, dry signal kept forward.
+
+    (It is Noctra. Do not play it that way yet.)
+
+  SCRIPT - 35 words across 72 seconds. Keep it this sparse.
+
+    0:02   "Ten stars. One keeper."
+    0:11   "They all left him."
+    0:16 - 0:32   NOTHING. Both drops play on music and picture alone.
+    0:34   "Ten homelands. Every one of them breaking."
+    0:40 - 0:48  NOTHING.
+    0:50   "Something has followed him since the first night.
+            It has never once attacked."
+    0:58   "Find them."
+    1:06   "And when you remember - find me."
+
+  The trick: he talks about Lumi in the third person for nearly a minute, and
+  then at 0:58 the same voice speaks TO him. Same read - do not perform the
+  reveal, the shift from description to instruction does it by itself.
 
 """)
         f.write(rule + "\n#  NEGATIVE PROMPT - paste into Flow's negative field\n")

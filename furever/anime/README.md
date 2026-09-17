@@ -18,6 +18,14 @@ shot, and explicit framing so subjects stop leaving the frame.
 | 8 | 0:56–1:04 | Music cuts dead — he wakes with nothing |
 | 9 | 1:04–1:12 | Clean plate → **FUREVER / PLAY NOW** |
 
+**The clips generate sound effects only — no music, no voice.** Veo mixes its
+generated music and SFX into one track you can't separate, and it picks its own
+narrator voice. So the prompts ask for diegetic sound only (wind, rain, stone,
+the scarf tearing), and the music brief and VO script live at the bottom of
+`FLOW_PROMPTS.txt` for you to lay over in the edit.
+
+If a clip comes back with music or a voice in it, regenerate — it can't be unmixed.
+
 ```bash
 python3 furever/anime/build_flow_teaser.py
 ```
