@@ -14,6 +14,10 @@ hard gap, and the character reveal landing **on the drop**.
 python3 furever/anime/build_teaser_40.py
 ```
 
+**All eight prompts live in one file: `out/ALL_PROMPTS.txt`.** Each prompt is a
+single line — triple-click selects the whole thing. Headers above each one say
+which references to attach and what the narration is.
+
 ## The structure
 
 Gojo's blindfold comes off on the drop. Gear 5 lands on the drop. The Dandadan
@@ -106,9 +110,10 @@ shots it doesn't have to share with a continuous take.
 
 | File | What it's for |
 | --- | --- |
-| [`build_teaser_40.py`](build_teaser_40.py) | **The 40s beat-synced teaser** |
-| `out/teaser40_prompts.txt` | The 4 core prompts, one per line |
-| `out/teaser40_inserts.txt` | 4 optional hero-shot inserts |
+| `out/ALL_PROMPTS.txt` | **All 8 prompts in one file, plus the workflow and VO** |
+| [`build_teaser_40.py`](build_teaser_40.py) | The 40s beat-synced teaser builder |
+| `out/teaser40_prompts.txt` | Just the 4 core prompts, if you want them separate |
+| `out/teaser40_inserts.txt` | Just the 4 optional hero inserts |
 | `out/teaser40_edit.md` | 36-cut beat grid, music brief, post recipe |
 | `out/teaser40_narration.txt` | VO script |
 | [`style-bible.md`](style-bible.md) | Look, character locks, colour script, camera |

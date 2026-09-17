@@ -19,6 +19,7 @@ Outputs into ./out/ :
     teaser40_prompts.txt           the 4 core clips, one prompt per line
     teaser40_inserts.txt           4 optional hero-shot inserts
     teaser40_edit.md               beat grid, 36-cut list, music brief, post recipe
+    ALL_PROMPTS.txt                EVERYTHING in one file - start here
     teaser40_narration.txt         VO only
 """
 
@@ -415,6 +416,64 @@ def main():
         for c in INSERTS:
             f.write(build_prompt(c, insert=True) + "\n")
 
+    # --- ONE merged file with everything in it, so nothing needs opening twice
+    rule = "#" * 78
+    attach = {1: "Lumi + scarf", 2: "Lumi + Noctra", 3: "Lumi + Noctra", 4: "Lumi + scarf"}
+    with open(os.path.join(out, "ALL_PROMPTS.txt"), "w") as f:
+        f.write(rule + "\n")
+        f.write("#  FUREVER - 40 SECOND ANIME TEASER - ALL PROMPTS\n")
+        f.write(f"#  {BPM} BPM | 4 core clips + {len(INSERTS)} optional inserts | "
+                "10s each\n")
+        f.write(rule + "\n")
+        f.write("""
+EACH PROMPT IS ONE SINGLE LINE. Triple-click it to select the whole thing.
+
+HOW TO RUN IT
+  1. Attach the character references on EVERY generation, not just the first.
+     A reference from three prompts ago is not in context any more.
+  2. Generate the 4 core clips in order: 1, 2, 3, 4.
+  3. Feed the LAST FRAME of each clip in as the FIRST FRAME of the next.
+     Text continuity alone will not hold four clips together.
+  4. The 4 inserts are standalone - no chaining, generate them any time.
+  5. Render 3-4 takes of everything. A drifted take does not recover, so
+     regenerate rather than trying to correct it.
+  6. Cut on the beat grid in teaser40_edit.md. Add shake, RGB split, impact
+     frames and the title in the EDIT - never in the prompt.
+
+IF IT GOES OFF-MODEL
+  Attach fewer references per generation. One character beats three at once,
+  which is why clips 2 and 3 drift most - they carry both cats.
+
+""")
+        f.write(rule + "\n#  CORE CLIPS - generate these four, in this order\n" + rule + "\n\n")
+        for c in CLIPS:
+            f.write(rule + "\n")
+            f.write(f"#  CLIP {c['n']} OF 4   |   {c['tin']}-{c['tout']}   |   {c['title']}\n")
+            f.write(f"#  ATTACH: {attach[c['n']]} reference\n")
+            vo = c["vo"] if c["vo"] else "(none - this clip plays on music alone)"
+            f.write(f"#  NARRATION: {vo}\n")
+            f.write(f"#  NOTE: {' '.join(c['note'].split())}\n")
+            f.write(rule + "\n\n")
+            f.write(build_prompt(c) + "\n\n\n")
+
+        f.write(rule + "\n#  OPTIONAL HERO INSERTS - the drop wants these\n")
+        f.write("#  Four clips can carry the teaser. Eight makes it look like the\n")
+        f.write("#  reference edits. No chaining - generate these standalone.\n")
+        f.write(rule + "\n\n")
+        for c in INSERTS:
+            f.write(rule + "\n")
+            f.write(f"#  INSERT {c['n']}   |   {c['title']}\n")
+            f.write(f"#  FOR: {c['use']}\n")
+            f.write(rule + "\n\n")
+            f.write(build_prompt(c, insert=True) + "\n\n\n")
+
+        f.write(rule + "\n#  NARRATION - record separately, 17 words total\n" + rule + "\n\n")
+        f.write(VOICE_DIRECTION + "\n\n")
+        f.write("No narration at all across the drop (0:20.8-0:34.4). Music only.\n\n")
+        for beat, who, line in NARRATION:
+            f.write(f"  {t(beat)}   {who:<9}  \"{line}\"\n")
+        f.write("\n")
+
     with open(os.path.join(out, "teaser40_narration.txt"), "w") as f:
         f.write("FUREVER - 40s TEASER - NARRATION\n" + "=" * 70 + "\n\n")
         f.write(VOICE_DIRECTION + "\n\n")
@@ -502,6 +561,7 @@ def main():
     print(f"cuts:       {len(CUTS)}  spanning {total} beats = {total * BEAT:.1f}s")
     print(f"core clips: {len(CLIPS)}   optional inserts: {len(INSERTS)}")
     print(f"vo words:   {sum(len(l.split()) for _, _, l in NARRATION)}")
+    print(f"merged:     {os.path.join(out, 'ALL_PROMPTS.txt')}")
     print(f"written to: {out}")
 
 
