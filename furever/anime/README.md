@@ -1,6 +1,14 @@
 # FUREVER — ANIME TEASER PACK
 
-**→ `build_teaser_40.py` — the 40-second beat-synced teaser. Start here.**
+**Using Google Flow? → `out/FLOW_PROMPTS.txt`.** Flow is Veo, and it needs a
+different build: 8-second clips, a separate negative field, one camera move per
+shot, and explicit framing so subjects stop leaving the frame.
+
+```bash
+python3 furever/anime/build_flow_teaser.py
+```
+
+**Anything else → `build_teaser_40.py`, the 40-second beat-synced teaser.**
 
 Built the way anime edits are actually built: on a BPM grid, with a buildup, a
 hard gap, and the character reveal landing **on the drop**.
@@ -110,7 +118,9 @@ shots it doesn't have to share with a continuous take.
 
 | File | What it's for |
 | --- | --- |
-| `out/ALL_PROMPTS.txt` | **All 8 prompts in one file, plus the workflow and VO** |
+| `out/FLOW_PROMPTS.txt` | **Google Flow / Veo build — 5 clips, negative field, workflow** |
+| [`build_flow_teaser.py`](build_flow_teaser.py) | The Flow builder |
+| `out/ALL_PROMPTS.txt` | All 8 prompts for other generators, plus workflow and VO |
 | [`build_teaser_40.py`](build_teaser_40.py) | The 40s beat-synced teaser builder |
 | `out/teaser40_prompts.txt` | Just the 4 core prompts, if you want them separate |
 | `out/teaser40_inserts.txt` | Just the 4 optional hero inserts |
