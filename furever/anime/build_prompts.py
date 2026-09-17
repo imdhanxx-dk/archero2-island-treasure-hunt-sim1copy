@@ -64,6 +64,28 @@ SCARF = (
     "along its length in an irregular constellation pattern, frayed trailing ends."
 )
 
+REFERENCE = (
+    "REFERENCE IMAGES - READ THIS FIRST: character reference images are attached to "
+    "this request. Look at them before generating anything. They are the definitive "
+    "and binding source for how these characters look. Match the attached references "
+    "exactly: fur colour and texture, body proportions and size relative to each "
+    "other, head and face structure, eye shape and eye colour, every marking, and the "
+    "scarf's exact fabric, colour, length and the number and placement of its "
+    "fastenings. Do not reinterpret, restyle, redesign, stylise differently or "
+    "otherwise 'improve' any character. Do not invent features that are not in the "
+    "references. Do not substitute a generic cat. If anything in the text below "
+    "appears to conflict with an attached reference image, THE REFERENCE IMAGE WINS. "
+    "The characters in your output must be recognisably the same individuals as the "
+    "ones in the attached images."
+)
+
+OFF_MODEL_NEG = (
+    "off-model character, redesigned character, different character design, "
+    "inconsistent character design, generic cat, wrong fur colour, wrong eye colour, "
+    "wrong markings, missing scarf, wrong number of fastenings, character drift, "
+    "ignoring the reference image, restyled character"
+)
+
 LOCKS = {"lumi": LUMI, "noctra": NOCTRA, "scarf": SCARF}
 
 
@@ -512,6 +534,7 @@ SHOTS = [
 def build_prompt(shot):
     """One fully self-contained, paste-ready prompt for a 10-second clip."""
     parts = [
+        REFERENCE,
         f"{SHOT_SECONDS}-SECOND ANIME SHOT.",
         STYLE,
         f"COLOR STAGE: {shot['stage']}.",
@@ -524,7 +547,7 @@ def build_prompt(shot):
             "0-3s the frame settles with one element already in motion, 3-7s the move "
             "commits, 7-10s the state changes and the shot lands. No cuts inside the shot."
         ),
-        NEGATIVE,
+        NEGATIVE + " " + OFF_MODEL_NEG + ".",
     ]
     return " ".join(" ".join(p.split()) for p in parts)
 

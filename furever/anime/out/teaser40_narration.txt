@@ -1,27 +1,31 @@
-FUREVER - 40 SECOND TEASER - NARRATION
-====================================================================
+FUREVER - 40s TEASER - NARRATION
+======================================================================
 
-Voice: low, unhurried, warm, close-mic'd. Not a trailer boom.
+Voice: deep male, heavy chest resonance, gravel in the bottom end, close-mic'd with audible breath. Track it twice and pitch the second take a full octave down underneath the first at about -12dB, so there is a floor beneath the voice you feel more than hear. Stone-room reverb tail, dry signal kept forward. Slow and weighted - every word lands like something heavy being set down. Not a hype-man, not a trailer boom. He is remembering, not announcing. (It is Noctra. Do not play it that way yet.)
 
-He is remembering, not announcing. (It is Noctra. Do not play it that way yet.)
+Fourteen words in forty seconds. The music carries this, not the
+voice. Every line is a stab that lands in a gap, never a sentence
+that flows over a section. There is NO narration at all across the
+drop (0:20.8-0:34.4) - that passage is music and picture only.
 
-THE TRICK: the narrator is Noctra. Nothing signposts it. He talks about
-Lumi in the third person for thirty seconds, and then in clip 4 he speaks
-TO him. Same voice, same read. The shift from description to imperative
-does all the work by itself - do not perform the reveal.
+THE TRICK: the narrator is Noctra. He talks about Lumi in the third
+person, and then at 0:35.2 the same voice speaks TO him. Same read -
+do not perform the reveal.
 
-Characters never lip-sync to this. It is off-screen voice-over only.
-====================================================================
+======================================================================
 
-0:00 - 0:10   CLIP 1 - THE FULL SKY
-    "Ten stars. And one small cat, who carried every single one of them - for exactly as long as they wished to stay."
+0:02.4  (beat 6)  NARRATOR
+    "Ten stars."
 
-0:10 - 0:20   CLIP 2 - THE BREAK
-    "Then something came up out of the dark that the world had spent four hundred years agreeing had never existed."
+0:09.6  (beat 24)  NARRATOR
+    "One keeper."
 
-0:20 - 0:30   CLIP 3 - THE HOMING
-    "They did not leave because they were afraid of him. They left because they were tired of being carried."
+0:13.6  (beat 34)  NARRATOR
+    "They all left him."
 
-0:30 - 0:40   CLIP 4 - THE EMPTY SKY
-    "NOCTRA (V.O.): "Find them. And when you remember - find me.""
+0:35.2  (beat 88)  NOCTRA
+    "Find them."
+
+0:38.4  (beat 96)  NOCTRA
+    "And when you remember - find me."
 

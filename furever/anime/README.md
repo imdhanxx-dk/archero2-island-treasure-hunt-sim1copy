@@ -1,72 +1,122 @@
 # FUREVER — ANIME TEASER PACK
 
-Two builds of the same material.
+**→ `build_teaser_40.py` — the 40-second beat-synced teaser. Start here.**
 
-**→ `build_teaser_40.py` — the 40-second teaser. 4 chained clips. Start here.**
-Each clip continues seamlessly from the last, so you generate four and lay them
-end to end. No cutting required. Narration and the no-lip-sync lock are baked
-into every prompt.
+Built the way anime edits are actually built: on a BPM grid, with a buildup, a
+hard gap, and the character reveal landing **on the drop**.
 
-`build_prompts.py` — the long-form pack: 26 shots, a 2:40 core cut and a 4:20
-extended cut, for when you want an actual trailer rather than a teaser.
-
-## The 40-second teaser
-
-| Clip | Time | Beat | Narration |
-| --- | --- | --- | --- |
-| 1 | 0:00–0:10 | **The Full Sky** — the scarf, ten lights, pull back to Lumi small in an enormous warm world | *"Ten stars. And one small cat, who carried every single one of them — for exactly as long as they wished to stay."* |
-| 2 | 0:10–0:20 | **The Break** — lights stutter and die, a beat of pure black, Noctra walks out of it | *"Then something came up out of the dark that the world had spent four hundred years agreeing had never existed."* |
-| 3 | 0:20–0:30 | **The Homing** — the scarf tears, ten lights blow past the lens and streak across the whole sky | *"They did not leave because they were afraid of him. They left because they were tired of being carried."* |
-| 4 | 0:30–0:40 | **The Empty Sky** — dawn, he wakes with nothing, touches an empty ring, black, one gold point | NOCTRA: *"Find them. And when you remember — find me."* |
-
-Run it:
+```
+150 BPM | 1 beat = 0.4s | 1 bar = 1.6s | 40s = 100 beats = 25 bars
+36 cuts, every one of them on a beat
+```
 
 ```bash
 python3 furever/anime/build_teaser_40.py
 ```
 
-Then paste `out/teaser40_prompts.txt` — four lines, four clips.
+## The structure
 
-### Three things that make it work
+Gojo's blindfold comes off on the drop. Gear 5 lands on the drop. The Dandadan
+OP does the same thing. It's one shape, and it's the shape this uses:
 
-**The narrator is Noctra.** He talks about Lumi in third person for thirty
-seconds, then in clip 4 the same voice speaks *to* him. Nothing signposts it.
-Don't perform the reveal — the shift from description to imperative does it.
+| Bars | Time | Section | Cutting |
+| --- | --- | --- | --- |
+| 1–4 | 0:00–0:06.4 | Cold open | 3 cuts, long. Sub-bass only. |
+| 5–8 | 0:06.4–0:12.8 | The world | 4 cuts, one per bar. Beat enters. |
+| 9–12 | 0:12.8–0:19.2 | The build | 8 cuts, halving. Riser. |
+| **13** | **0:19.2–0:20.8** | **THE GAP** | **Black. Total silence.** |
+| 14–17 | 0:20.8–0:27.2 | **THE DROP** | 8 cuts. Noctra reveal on the downbeat. |
+| 18–20 | 0:27.2–0:32.0 | The break | 6 cuts. The scarf tears. |
+| 21–22 | 0:32.0–0:35.2 | The Homing | 1 cut, held long. Biggest hit. |
+| 23–24 | 0:35.2–0:38.4 | The fall | 3 cuts. Music stops dead. |
+| 25 | 0:38.4–0:40.0 | Title | Logo slams on the downbeat. |
 
-**Colour is spent, not used.** Clip 1 carries all ten hues. From the moment the
-lights blow past the lens in clip 3 there is no saturated colour left until the
-single gold point at the end. Don't grade warmth back into clip 4.
+Full 36-cut list, music brief and post recipe: `out/teaser40_edit.md`
 
-**The beat of black in clip 2 is not dead air.** Total silence, no room tone.
-Everything before it is warm and everything after it is not, and the audience
-needs one beat in the dark to feel the floor go.
+## The music idea worth keeping
 
-### Chaining
+The four-note lullaby Noctra wrote for Lumi is stated clean and gentle on a lone
+plucked instrument in bar 1 — and **the drop is the same four notes**, distorted,
+pitched down, played as a riff.
 
-Feed the **last frame of each clip in as the first frame of the next**. Every
-prompt opens with the continuity instruction, but image conditioning is what
-actually holds it together — wording alone won't.
+The hype and the story are the same melody. That's what stops it feeling like a
+generic edit with a cat in it.
 
-Every prompt also carries an explicit **NO LIP SYNC** block in both the positive
-and the negative, so nobody's mouth moves to the voice-over. The narration is
-off-screen; it doesn't belong to anyone in frame.
+## Getting references to actually stick
+
+Gemini/Veo drifts off-model unless you outrank the text. Every prompt now opens
+with a binding reference block that says, in terms:
+
+> *If anything in the text below appears to conflict with an attached reference
+> image, **THE REFERENCE IMAGE WINS**.*
+
+Plus off-model terms in the negative (`redesigned character`, `generic cat`,
+`wrong markings`, `character drift`). On top of that:
+
+1. **Attach the references on every single generation**, not just the first. A
+   reference from three prompts ago is not in context.
+2. **Chain last frame → first frame** between clips. Text continuity alone won't
+   hold four clips together.
+3. If it still drifts, **attach fewer references** — one character per generation
+   beats three at once, which is why clip 3 (Lumi *and* Noctra) is the one most
+   likely to go off-model.
+4. Regenerate rather than argue. A drifted take doesn't recover.
+
+## Voice
+
+Deep now, not warm:
+
+> *Deep male, heavy chest resonance, gravel in the bottom end, close-mic'd with
+> audible breath. Track it twice and pitch the second take a full octave down
+> underneath the first at about −12dB, so there's a floor beneath the voice you
+> feel more than hear. Stone-room reverb tail, dry signal forward. Slow and
+> weighted — every word lands like something heavy being set down. Not a
+> hype-man, not a trailer boom. He is remembering, not announcing. (It is
+> Noctra. Do not play it that way yet.)*
+
+**17 words in 40 seconds**, and none at all across the drop. The music carries
+it — every line is a stab landing in a gap, not a sentence flowing over a
+section.
+
+| Time | Speaker | Line |
+| --- | --- | --- |
+| 0:02.4 | Narrator | *"Ten stars."* |
+| 0:09.6 | Narrator | *"One keeper."* |
+| 0:13.6 | Narrator | *"They all left him."* |
+| 0:35.2 | Noctra | *"Find them."* |
+| 0:38.4 | Noctra | *"And when you remember — find me."* |
+
+## Prompt vs. post
+
+**In the prompt** (the generator can do these): whip pans, crash zooms, speed
+ramps, motion blur, smear frames, impact poses, debris past the lens.
+
+**In the edit only** (never prompt for these — they bake in badly and you lose
+control of which frame they land on): beat-synced shake, impact frames, RGB
+split, glow pump, zoom punches, the title.
+
+## Clips
+
+**4 core** — chained, continuous, cover the whole 40s.
+**4 optional hero inserts** — `out/teaser40_inserts.txt`. Four clips can carry
+this; eight makes it look like the reference edits, because the drop wants hero
+shots it doesn't have to share with a continuous take.
 
 ## Files
 
 | File | What it's for |
 | --- | --- |
-| [`build_teaser_40.py`](build_teaser_40.py) | **The 40s teaser.** 4 chained clips, narration and lip-sync lock built in |
-| `out/teaser40_prompts.txt` | The 4 prompts, one per line — paste straight into your queue |
-| `out/teaser40_prompts.md` | The same 4, readable, with per-clip sound and grading notes |
-| `out/teaser40_narration.txt` | VO script for the voice session |
-| [`style-bible.md`](style-bible.md) | The look, character locks, colour script, camera language |
+| [`build_teaser_40.py`](build_teaser_40.py) | **The 40s beat-synced teaser** |
+| `out/teaser40_prompts.txt` | The 4 core prompts, one per line |
+| `out/teaser40_inserts.txt` | 4 optional hero-shot inserts |
+| `out/teaser40_edit.md` | 36-cut beat grid, music brief, post recipe |
+| `out/teaser40_narration.txt` | VO script |
+| [`style-bible.md`](style-bible.md) | Look, character locks, colour script, camera |
 | [`build_prompts.py`](build_prompts.py) | The long-form 26-shot trailer pack |
-| `out/core_cut_10s.txt` | 16 prompts — the 2:40 trailer cut |
-| `out/bulk_prompts_10s.txt` | All 26 trailer prompts |
-| `out/narration_core.txt` / `narration_extended.txt` | Trailer VO, timecoded per cut |
+| `out/core_cut_10s.txt` / `bulk_prompts_10s.txt` | Trailer prompts, 2:40 and 4:20 |
+| `out/narration_core.txt` / `narration_extended.txt` | Trailer VO |
 | `out/character_refs.txt` | Reference stills for Lumi, Noctra, the scarf |
 | `out/shots.csv` | The trailer edit as a spreadsheet |
-
 
 ## The long-form trailer
 
