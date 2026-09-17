@@ -1,0 +1,82 @@
+FUREVER - TEASER NARRATION SCRIPT
+CORE CUT - 16 shots, 02:40
+Voice: low, unhurried, warm, close-mic'd. Not a trailer boom.
+He is remembering, not announcing. (It is Noctra. Do not play it that way yet.)
+========================================================================
+
+[CORE] 00:00-00:10  SHOT 01 - Veylora at dawn
+        Before anyone remembered the word FurEver, there was a world called
+        Veylora. It was not built around kingdoms.
+        SFX: Low sustained drone. Distant wind. A single struck bell at the sunrise flare.
+
+[CORE] 00:10-00:20  SHOT 03 - The Starkeeper
+        And one small cat carried all ten of them — for exactly as long as
+        they wished to stay. That was the whole job.
+        SFX: Grass. Soft footpads. A faint choral hum from the scarf, ten voices.
+
+[CORE] 00:20-00:30  SHOT 05 - The Vault goes wrong
+        There were rules older than the language they were written in. You
+        cannot protect a thing by owning it. He never broke one.
+        SFX: Stone ambience. The hum turning discordant. A sub-bass vibration rising.
+
+[CORE] 00:30-00:40  SHOT 07 - Noctra
+        Something came up out of the dark that Veylora had spent four
+        hundred years agreeing had never existed at all.
+        SFX: Deep sub-bass. Stone grinding. The gem pulse lands like a struck anvil.
+
+[CORE] 00:40-00:50  SHOT 09 - Light against shadow
+        (SILENT - do not fill this. The silence is the point.)
+        SFX: No music. Only impact, stone, and breathing. Let it be ugly.
+
+[CORE] 00:50-01:00  SHOT 10 - The constellation breaks
+        (SILENT - do not fill this. The silence is the point.)
+        SFX: A long, rising, glassy tear. Ten distinct notes leaving, high to low.
+
+[CORE] 01:00-01:10  SHOT 11 - The Homing
+        And ten stars did the one thing nobody in recorded history had ever
+        seen them do. They went home. All of them. At once.
+        SFX: A single held orchestral swell. Ten departing pitches. Then nothing.
+
+[CORE] 01:10-01:20  SHOT 12 - The map burns
+        The stars had never carried his memories. They had carried the map
+        he kept them on. When it broke, so did he.
+        SFX: Everything underwater. A four-note lullaby, hummed, very faint.
+
+[CORE] 01:20-01:30  SHOT 13 - Waking in the meadow
+        (SILENT - do not fill this. The silence is the point.)
+        SFX: Wind in grass. Birdsong. Unbearably peaceful. A long time before any music.
+
+[CORE] 01:30-01:40  SHOT 14 - Nothing happens
+        He woke in a field with a scarf full of empty spaces, and no way of
+        telling which one of them had been his own name.
+        SFX: Silence under the wind. One very small, unmusical note.
+
+[CORE] 01:40-01:50  SHOT 18 - Frostfang — the valley that will not thaw
+        A valley where the snow has not melted since the night it fell.
+        Where nothing heals — because nothing is allowed to change.
+        SFX: Absolute silence. A distant, single, held violin note. Ice ticking.
+
+[CORE] 01:50-02:00  SHOT 21 - Ten places to stand
+        Ten stars. Ten homelands. And not a single one of them willing to be
+        carried again.
+        SFX: Ten tones returning, one at a time, building to the chord from shot 02 — but incomplete.
+
+[CORE] 02:00-02:10  SHOT 22 - Two days behind
+        Something has been following him since the first night. Across every
+        border. It has not attacked him once.
+        SFX: Rain. Nothing else. No music at all until he moves.
+
+[CORE] 02:10-02:20  SHOT 23 - The one who knows
+        It is the only creature alive who knows his name. And it cannot tell
+        him. Being told is not the same as remembering.
+        SFX: Very low breath. A single warm piano note on the gold fracture. Wrong instrument, deliberately.
+
+[CORE] 02:20-02:30  SHOT 24 - Find them
+        NOCTRA (V.O.): "Find them. Find every one of them. And when you
+        remember —"
+        SFX: The narrator's voice, for the first time, is coming from inside the shot.
+
+[CORE] 02:30-02:40  SHOT 25 - Title card
+        NOCTRA (V.O.): "— find me."
+        SFX: Absolute silence, then the four-note lullaby, played once, complete. Title sting.
+
