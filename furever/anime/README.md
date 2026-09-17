@@ -1,31 +1,82 @@
 # FUREVER — ANIME TEASER PACK
 
-A **game announce teaser** for *FurEver: The Lost Starkeeper*, built as
-**26 × 10-second anime shots** with timed background narration.
+Two builds of the same material.
 
-- **CORE CUT** — 16 shots — **2:40** ← build this one first
-- **EXTENDED CUT** — 26 shots — **4:20**
+**→ `build_teaser_40.py` — the 40-second teaser. 4 chained clips. Start here.**
+Each clip continues seamlessly from the last, so you generate four and lay them
+end to end. No cutting required. Narration and the no-lip-sync lock are baked
+into every prompt.
+
+`build_prompts.py` — the long-form pack: 26 shots, a 2:40 core cut and a 4:20
+extended cut, for when you want an actual trailer rather than a teaser.
+
+## The 40-second teaser
+
+| Clip | Time | Beat | Narration |
+| --- | --- | --- | --- |
+| 1 | 0:00–0:10 | **The Full Sky** — the scarf, ten lights, pull back to Lumi small in an enormous warm world | *"Ten stars. And one small cat, who carried every single one of them — for exactly as long as they wished to stay."* |
+| 2 | 0:10–0:20 | **The Break** — lights stutter and die, a beat of pure black, Noctra walks out of it | *"Then something came up out of the dark that the world had spent four hundred years agreeing had never existed."* |
+| 3 | 0:20–0:30 | **The Homing** — the scarf tears, ten lights blow past the lens and streak across the whole sky | *"They did not leave because they were afraid of him. They left because they were tired of being carried."* |
+| 4 | 0:30–0:40 | **The Empty Sky** — dawn, he wakes with nothing, touches an empty ring, black, one gold point | NOCTRA: *"Find them. And when you remember — find me."* |
+
+Run it:
+
+```bash
+python3 furever/anime/build_teaser_40.py
+```
+
+Then paste `out/teaser40_prompts.txt` — four lines, four clips.
+
+### Three things that make it work
+
+**The narrator is Noctra.** He talks about Lumi in third person for thirty
+seconds, then in clip 4 the same voice speaks *to* him. Nothing signposts it.
+Don't perform the reveal — the shift from description to imperative does it.
+
+**Colour is spent, not used.** Clip 1 carries all ten hues. From the moment the
+lights blow past the lens in clip 3 there is no saturated colour left until the
+single gold point at the end. Don't grade warmth back into clip 4.
+
+**The beat of black in clip 2 is not dead air.** Total silence, no room tone.
+Everything before it is warm and everything after it is not, and the audience
+needs one beat in the dark to feel the floor go.
+
+### Chaining
+
+Feed the **last frame of each clip in as the first frame of the next**. Every
+prompt opens with the continuity instruction, but image conditioning is what
+actually holds it together — wording alone won't.
+
+Every prompt also carries an explicit **NO LIP SYNC** block in both the positive
+and the negative, so nobody's mouth moves to the voice-over. The narration is
+off-screen; it doesn't belong to anyone in frame.
 
 ## Files
 
 | File | What it's for |
 | --- | --- |
-| [`style-bible.md`](style-bible.md) | The look, the character locks, the colour script, camera language, narrator direction |
-| [`build_prompts.py`](build_prompts.py) | The shot list itself + the generator. Edit shots here, re-run |
-| `out/character_refs.txt` | **Generate these 3 first.** Reference stills for Lumi, Noctra, the scarf |
-| `out/core_cut_10s.txt` | 16 prompts, one per line — the 2:40 teaser |
-| `out/bulk_prompts_10s.txt` | All 26 prompts, one per line |
-| `out/narration_core.txt` | VO script, timecoded to the core cut |
-| `out/narration_extended.txt` | VO script, timecoded to the extended cut |
-| `out/shots.csv` | The whole edit as a spreadsheet, both timelines |
+| [`build_teaser_40.py`](build_teaser_40.py) | **The 40s teaser.** 4 chained clips, narration and lip-sync lock built in |
+| `out/teaser40_prompts.txt` | The 4 prompts, one per line — paste straight into your queue |
+| `out/teaser40_prompts.md` | The same 4, readable, with per-clip sound and grading notes |
+| `out/teaser40_narration.txt` | VO script for the voice session |
+| [`style-bible.md`](style-bible.md) | The look, character locks, colour script, camera language |
+| [`build_prompts.py`](build_prompts.py) | The long-form 26-shot trailer pack |
+| `out/core_cut_10s.txt` | 16 prompts — the 2:40 trailer cut |
+| `out/bulk_prompts_10s.txt` | All 26 trailer prompts |
+| `out/narration_core.txt` / `narration_extended.txt` | Trailer VO, timecoded per cut |
+| `out/character_refs.txt` | Reference stills for Lumi, Noctra, the scarf |
+| `out/shots.csv` | The trailer edit as a spreadsheet |
 
-Regenerate after editing the shot list:
+
+## The long-form trailer
+
+Only if you want the 2:40 or 4:20 cut rather than the teaser.
 
 ```bash
 python3 furever/anime/build_prompts.py
 ```
 
-## How to actually run this
+### How to run it
 
 1. **Generate the three character references first.** Everything else depends on
    them. Pick the best Lumi, the best Noctra, the best scarf, and keep them.
@@ -39,7 +90,7 @@ python3 furever/anime/build_prompts.py
    composition. You are fishing for the one where the face holds.
 6. Cut to the narration script. Record VO first and cut picture to it.
 
-## Structure of the teaser
+### Structure of the trailer
 
 | Act | Shots | What it does |
 | --- | --- | --- |
@@ -50,7 +101,7 @@ python3 furever/anime/build_prompts.py
 | **V. The Pursuer** | 22–24 | Something has been following him. It has not attacked once. |
 | **VI. Title** | 25–26 | *"— find me."* |
 
-## The three things that make it not generic
+### What makes it not generic
 
 **The narrator is Noctra.** Nothing signposts it. He spends the whole teaser
 talking about Lumi in the third person, warmly, and on shot 24 his voice walks
