@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-FurEver - 40s ANIME TEASER, BUILT FOR GOOGLE FLOW (Veo).
+FurEver - 1:12 ANIME TEASER, BUILT FOR GOOGLE FLOW (Veo).
 
 Flow is not a generic image generator and the generic prompts fail on it.
 This rewrites the teaser for how Veo actually behaves:
 
-  * 8-SECOND CLIPS, not 10. Five clips x 8s = 40s exactly.
+  * 8-SECOND CLIPS, not 10. Nine clips x 8s = 1:12 exactly.
   * SEPARATE NEGATIVE FIELD. Veo has one. Instructive negatives written inside
     the prompt body ("no text", "no extra limbs") can summon the thing instead
     of suppressing it. The negative list is emitted separately to paste in.
@@ -21,7 +21,7 @@ This rewrites the teaser for how Veo actually behaves:
     python3 build_flow_teaser.py
 
 Outputs into ./out/ :
-    FLOW_PROMPTS.txt    all 5 prompts + the negative field + the workflow
+    FLOW_PROMPTS.txt    all 9 prompts + negative field + end-card spec
 """
 
 import os
@@ -69,9 +69,23 @@ MUSIC = {
     "drop_peak": (
         f"The beat at full intensity, {BPM} BPM, distorted 808 bass and heavy "
         "taiko, with a huge sustained orchestral swell rising over the top of it."),
+    "half_time": (
+        f"The beat drops into half-time at {BPM} BPM. The drums gate and stutter, "
+        "the 808 bass holds long low notes, most layers stripped away. Tense and "
+        "spacious but still driving."),
+    "drop_two": (
+        f"The beat slams back in at full intensity, {BPM} BPM. Distorted 808 bass, "
+        "heavy taiko, triumphant and aggressive, the distorted koto riff back as "
+        "the lead. The second and biggest drop of the track."),
+    "stripped": (
+        f"The drums cut away to a single sparse {BPM} BPM kick and a low sustained "
+        "drone. Rain and space. Menacing, holding back."),
     "cut_out": (
         "The music stops completely and instantly. No drums, no bass, no "
         "instruments. Only soft wind moving through grass and distant birdsong."),
+    "end_card": (
+        "Near silence, then a single clean four-note plucked koto melody played "
+        "once, gently and completely. One deep low sting underneath it at the end."),
 }
 
 # Veo attributes quoted dialogue to a visible character and lip-syncs it.
@@ -213,35 +227,202 @@ CLIPS = [
              "separate 8s clips and cut them together.",
     ),
     dict(
-        n=5, tin="0:32", tout="0:40", title="THE FALL + TITLE",
+        n=5, tin="0:32", tout="0:40", title="THE BROKEN WORLD",
+        ingredients="none - landscape only",
+        subject="A vast fantasy world seen from the air, with no characters in it. "
+                "Three distinct regions in sequence below the camera.",
+        action="A fast continuous forward flight across the landscape. First over a "
+               "snowbound valley under a huge rippling green and violet aurora "
+               "where absolutely nothing moves and a waterfall hangs frozen "
+               "mid-fall. Then over a red rock canyon where fires burn steadily on "
+               "bare stone with no fuel and embers stream upward. Then over a dense "
+               "jungle canopy blazing with overwhelming turquoise and magenta "
+               "bioluminescence, every leaf and vine glowing far too brightly.",
+        scene="An enormous broken fantasy landscape at night. Each region is "
+              "beautiful and visibly wrong - frozen solid, endlessly burning, or "
+              "painfully overlit.",
+        camera="One single fast continuous forward aerial flight, low over the "
+               "terrain, moving the whole time. One continuous move only.",
+        comp="Wide aerial shot. The horizon line stays level in the upper third "
+             "for the entire eight seconds and the landscape fills the frame. The "
+             "camera never tilts away from the terrain and never loses the horizon.",
+        light="Aurora green and violet over the snow, hard orange firelight in the "
+              "canyon, saturated turquoise glow in the jungle. Each region lit "
+              "entirely by its own colour.",
+        audio=MUSIC["half_time"] + " " +
+              vo("Ten homelands. Every one of them breaking."),
+        note="No characters, so this one is safe from drift. Good clip to "
+             "over-generate cheaply.",
+    ),
+    dict(
+        n=6, tin="0:40", tout="0:48", title="LUMI - THE SECOND DROP",
         ingredients="Lumi + scarf",
-        subject=f"{LUMI}, except now his scarf is torn and all ten silver rings "
-                "are completely empty and dark.",
+        subject=f"{LUMI}. One single ring on the scarf now holds a bright green "
+                "glowing star. The other nine are still empty and dark.",
+        action="He stands braced and low on cracked stone ground as a storm of "
+               "dark energy batters him. The gold markings on his forelegs and "
+               "brow blaze to full brightness and an enormous curved golden shield "
+               "of light expands outward around him. Debris and glowing fragments "
+               "blast past him. He does not move backward.",
+        scene="Shattered stone ground in near darkness, dark energy sweeping "
+              "across it, fragments of rock and gold light suspended in the air.",
+        camera="One single slow orbit around him from a low hero angle, rising "
+               "slightly. One continuous move only.",
+        comp="Low angle hero shot. The white cat is centred in the frame and fully "
+             "visible from nose to tail for the entire eight seconds, occupying "
+             "the middle third. The camera orbits around him but keeps him dead "
+             "centre and never loses him.",
+        light="Brilliant warm gold light radiating from the cat himself against a "
+              "near-black background, hard rim lighting, the gold shield glowing.",
+        audio=MUSIC["drop_two"] + " " + NO_VO,
+        note="His power moment. This is the shot that has to make people want to "
+             "play as him. Spend takes here.",
+    ),
+    dict(
+        n=7, tin="0:48", tout="0:56", title="THE PURSUER",
+        ingredients="Noctra only",
+        subject=f"{NOCTRA}.",
+        action="He walks slowly and steadily forward toward the camera down an "
+               "empty road in heavy night rain, never hurrying. Rain steams and "
+               "hisses where it touches him. The violet cracks across his body "
+               "pulse brighter as he comes closer, and he does not break stride.",
+        scene="An empty moorland road at night in torrential rain. Wet stone, "
+              "standing water, a broken wooden post at the roadside. No lights "
+              "anywhere.",
+        camera="One single slow push-in toward him along the road. One continuous "
+               "move only.",
+        comp="Wide shot tightening to a medium shot. The enormous black cat is "
+             "centred in the frame and fully visible for the entire eight seconds, "
+             "walking directly toward the lens. He stays dead centre and the "
+             "camera never loses him.",
+        light="Near-total darkness and rain. He is lit only by the violet glow of "
+              "his eyes, the cracks across his body and the gem in his chest, with "
+              "rain catching that violet light as it falls.",
+        audio=MUSIC["stripped"] + " Heavy rain throughout. " +
+              vo("Something has followed him since the first night. It has never "
+                 "once attacked."),
+        note="Menace, not action. The restraint here is what makes clip 6 and the "
+             "end card land.",
+    ),
+    dict(
+        n=8, tin="0:56", tout="1:04", title="THE FALL",
+        ingredients="Lumi + scarf",
+        subject=f"{LUMI}, except his scarf is torn and all ten silver rings are "
+                "completely empty and dark.",
         action="His eyes open. He pushes himself up quickly, disoriented, looking "
                "around at a landscape he does not recognise. He looks down and "
                "touches one empty silver ring on the torn scarf with a paw. "
                "Nothing happens. He touches the next one. Nothing happens. He "
-               "stops and his ears flatten back. The frame darkens to black, and "
-               "one small point of warm gold light appears in the centre and "
-               "glows softly.",
-        scene="A pale, washed-out dawn meadow. Tall grass, weak morning light, "
-              "insects drifting. Everything is desaturated and quiet.",
+               "stops and his ears flatten back.",
+        scene="A pale washed-out dawn meadow. Tall grass, weak morning light, "
+              "insects drifting through the air. Everything is desaturated, still "
+              "and quiet.",
         camera="One single slow rise from ground level as he sits up, settling "
-               "into a close shot. One continuous move only.",
-        comp="Low shot rising to a close-up. The white cat is centred in the "
-             "frame and fully visible for the entire eight seconds. His face and "
-             "the torn scarf are both clearly in frame. The camera keeps him "
-             "centred and never loses him. The final two seconds are pure black "
-             "with a single small gold light dead centre.",
-        light="Pale, flat, desaturated morning light with no warmth in it. Then "
-              "total darkness with one warm gold point.",
-        audio=MUSIC["cut_out"] + " " +
-              vo("Find them. And when you remember - find me.") +
-              " At the very end, one low musical sting.",
-        note="The silence after the drop is what sells it. Keep the grade pale. "
-             "Composite the FUREVER logo over the last 2s in the edit.",
+               "into a close shot on his face and the scarf. One continuous move "
+               "only.",
+        comp="Low shot rising to a close-up. The white cat is centred in the frame "
+             "and fully visible for the entire eight seconds, with his face and "
+             "the torn scarf both clearly inside the frame. The camera keeps him "
+             "centred and never loses him.",
+        light="Pale, flat, desaturated morning light with no warmth in it at all.",
+        audio=MUSIC["cut_out"] + " " + vo("Find them."),
+        note="The silence after two drops is what sells the loss. Keep the grade "
+             "pale - do not put warmth back in.",
+    ),
+    dict(
+        n=9, tin="1:04", tout="1:12", title="END CARD PLATE",
+        ingredients="none - abstract plate",
+        subject="A completely black frame with a single small point of warm gold "
+                "light at the exact centre. No characters, no landscape, no "
+                "objects.",
+        action="The single gold point of light ignites at the centre of the black "
+               "frame and blooms slowly outward, its glow faintly revealing the "
+               "texture of black woven fabric filling the whole frame. Ten small "
+               "faint silver rings fade up around it, arranged in an irregular "
+               "constellation pattern, and thin silver lines draw slowly between "
+               "them. The gold point pulses gently once and holds steady.",
+        scene="Pure black, with the faint texture of very dark woven cloth "
+              "revealed only by the central glow.",
+        camera="The camera is completely static and does not move at all for the "
+               "entire eight seconds. No push, no drift, no shake.",
+        comp="Perfectly symmetrical centred composition. The gold point sits at "
+             "the exact centre of the frame. The ten silver rings are spread "
+             "evenly around it with generous empty black space at the top and "
+             "bottom of the frame, because titles and a button are composited "
+             "into those areas afterwards. Nothing enters or crosses the frame.",
+        light="A single warm gold light source at the centre, falling off quickly "
+              "into pure black.",
+        audio=MUSIC["end_card"] + " " +
+              vo("And when you remember - find me."),
+        note="A CLEAN PLATE. The FUREVER logo and the PLAY NOW button are "
+             "composited over this in the edit - never let Veo render text. Keep "
+             "the top and bottom of the frame empty.",
     ),
 ]
+
+
+END_CARD = """
+COMPOSITE THIS OVER CLIP 9 (1:04-1:12). Never generate text in Veo - it will
+produce garbled glyphs. Build this in After Effects, Premiere, CapCut or Canva
+over the clean plate.
+
+PALETTE
+  Background       #05060B   near-black, the colour of the scarf
+  Gold primary     #F0C24A   the logo, the button fill, the centre light
+  Gold highlight   #FFD77A   glow and bloom on the gold
+  Violet accent    #7B4BD6   Noctra's colour, used once and sparingly
+  Off-white        #EDEAE3   the subtitle and the small print
+
+TYPE
+  FUREVER              a wide geometric sans, heavy weight, all caps,
+                       letter-spacing about 0.18em. Gold #F0C24A with a soft
+                       outer glow. This is the hero element.
+  THE LOST STARKEEPER  the same family, light weight, all caps, letter-spacing
+                       about 0.32em, roughly 30 percent of the logo size.
+                       Off-white #EDEAE3 at about 80 percent opacity.
+  PLAY NOW             medium weight, all caps, letter-spacing about 0.12em,
+                       dark #05060B sitting on the gold button fill.
+
+LAYOUT, top to bottom, centred
+  1. The ten-ring constellation from the plate, small, upper-middle
+  2. FUREVER
+  3. THE LOST STARKEEPER
+  4. PLAY NOW button
+  5. Platform badges or a pre-register line, small, at the bottom
+
+THE PLAY NOW BUTTON
+  Rounded rectangle, corner radius about half its height, filled solid gold
+  #F0C24A, with the text in near-black. Roughly 22 percent of frame width.
+  Give it a soft gold outer glow and a slow breathing pulse, about 4 percent
+  scale over 1.2 seconds, looping. It should look pressable, not decorative.
+
+TIMING, against the 8 seconds of clip 9
+  1:04.0  plate only, the gold point blooming, nothing composited yet
+  1:05.6  FUREVER slams in on the beat. Scale from 108 percent to 100 percent
+          over 5 frames with a 2-frame white flash behind it. Hard, no easing.
+  1:06.4  THE LOST STARKEEPER fades up underneath over 12 frames
+  1:07.2  one of the ten silver rings quietly ignites green and holds
+  1:08.0  PLAY NOW button scales up from 0 with a short overshoot, then starts
+          its breathing pulse
+  1:08.8  platform badges fade up at about 70 percent opacity
+  1:09.6  hold everything steady to the end
+
+  Total dwell on a complete, readable call to action: about 3.5 seconds. That
+  is the minimum that reads on a phone. Do not cut it shorter.
+
+TWO THINGS NOT TO GET WRONG
+  The single green ring at 1:07.2 is the whole hook - it says the first star is
+  already answering him, and it is the only saturated colour on screen. Do not
+  add any other colour.
+
+  Keep the button gold, never violet. Violet is Noctra's colour in this film and
+  putting it on the call to action quietly tells the audience the wrong thing.
+
+VERTICAL CUT
+  For a 9:16 social version, stack the same order with more vertical spacing,
+  make the button roughly 60 percent of frame width, and move the whole group
+  up so the button sits above the bottom third where platform UI overlays sit.
+"""
 
 
 def build(c):
@@ -266,12 +447,12 @@ def main():
     with open(os.path.join(out, "FLOW_PROMPTS.txt"), "w") as f:
         f.write(rule + "\n")
         f.write("#  FUREVER - 40 SECOND ANIME TEASER - GOOGLE FLOW (VEO) BUILD\n")
-        f.write(f"#  5 clips x {CLIP_SECONDS}s = 40s  |  music {BPM} BPM\n")
+        f.write(f"#  9 clips x {CLIP_SECONDS}s = 1:12  |  music {BPM} BPM  |  two drops\n")
         f.write(rule + "\n")
         f.write("""
 WHY THE EARLIER PROMPTS FAILED ON FLOW, AND WHAT CHANGED
 
-  1. Veo generates 8-SECOND clips, not 10. Restructured to 5 x 8s.
+  1. Veo generates 8-SECOND clips, not 10. Restructured to 9 x 8s = 1:12.
 
   2. Veo has a SEPARATE NEGATIVE PROMPT FIELD. The old prompts had a huge
      negative list buried in the prompt body, which on Veo can summon the very
@@ -298,10 +479,15 @@ HOW TO RUN IT IN FLOW
     purpose. Two characters in one generation is where Veo drifts worst.
   * Use FRAMES TO VIDEO to chain: take the last frame of each clip and set it
     as the starting frame of the next.
-  * Generate 3-4 takes of every clip. Clip 3 is the reveal and clip 4 is the
-    busiest - spend your takes there.
+  * Generate 3-4 takes of every clip. Clips 3, 4 and 6 carry the most weight -
+    spend your takes there. Clips 5 and 9 have no characters in them, so they
+    are cheap and safe.
   * If clip 4 keeps breaking, split it: generate the fight as one 8s clip and
     the ten lights crossing the sky as another, and cut them together.
+  * CLIP 9 IS A CLEAN PLATE. The FUREVER logo and the PLAY NOW button are
+    composited over it in the edit. Never ask Veo for text - it produces
+    garbled glyphs every time. Full end-card spec is at the bottom of this
+    file.
 
 ABOUT THE AUDIO
 
@@ -316,8 +502,16 @@ ABOUT THE AUDIO
 
   Track brief: 150 BPM, fast aggressive Japanese hip-hop / trap. Deep 808
   sub-bass, syncopated hi-hats, taiko drums, a plucked koto riff as the hook.
-  Sparse for 8s, building for 8s, TOTAL SILENCE for 2s, then the drop at 0:16
-  and held to 0:32, then everything cuts out dead for the last 8 seconds.
+
+    0:00  sparse, koto motif stated clean
+    0:08  build, hi-hat rolls accelerating, taiko rising
+    0:16  TOTAL SILENCE for 2s, then DROP ONE - Noctra
+    0:24  drop continues, biggest impact on the Homing
+    0:32  half-time break, stripped back, the broken world
+    0:40  DROP TWO - the biggest one, Lumi's power moment
+    0:48  stripped to a single kick and rain, menace
+    0:56  everything cuts out dead, silence for 8s
+    1:04  the koto motif once more, clean, then a low sting
 
   The one idea worth keeping: the koto riff is the four-note lullaby Noctra
   wrote for Lumi. The drop is the same four notes distorted and pitched down.
@@ -331,12 +525,17 @@ ABOUT THE AUDIO
 
         for c in CLIPS:
             f.write(rule + "\n")
-            f.write(f"#  CLIP {c['n']} OF 5   |   {c['tin']}-{c['tout']}   |   "
+            f.write(f"#  CLIP {c['n']} OF {len(CLIPS)}   |   {c['tin']}-{c['tout']}   |   "
                     f"{c['title']}\n")
             f.write(f"#  INGREDIENTS: {c['ingredients']}\n")
             f.write(f"#  NOTE: {' '.join(c['note'].split())}\n")
             f.write(rule + "\n\n")
             f.write(build(c) + "\n\n\n")
+
+        f.write(rule + "\n#  END CARD - FUREVER / PLAY NOW\n")
+        f.write("#  Composited in the edit over clip 9. Not generated.\n")
+        f.write(rule + "\n")
+        f.write(END_CARD + "\n")
 
     lens = [len(build(c)) for c in CLIPS]
     print(f"clips:      {len(CLIPS)} x {CLIP_SECONDS}s = {len(CLIPS) * CLIP_SECONDS}s")

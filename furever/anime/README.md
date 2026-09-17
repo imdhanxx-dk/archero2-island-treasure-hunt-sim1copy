@@ -4,6 +4,20 @@
 different build: 8-second clips, a separate negative field, one camera move per
 shot, and explicit framing so subjects stop leaving the frame.
 
+**9 clips × 8s = 1:12**, two drops, ending on a **FUREVER / PLAY NOW** end card.
+
+| Clip | Time | Beat |
+| --- | --- | --- |
+| 1 | 0:00–0:08 | The world — Lumi running, ten lights lit |
+| 2 | 0:08–0:16 | The lights die, the Vault, the build |
+| 3 | 0:16–0:24 | **DROP ONE** — Noctra reveal |
+| 4 | 0:24–0:32 | The scarf tears, the Homing |
+| 5 | 0:32–0:40 | Half-time — the broken world, three regions |
+| 6 | 0:40–0:48 | **DROP TWO** — Lumi's power moment |
+| 7 | 0:48–0:56 | Stripped — the pursuer in the rain |
+| 8 | 0:56–1:04 | Music cuts dead — he wakes with nothing |
+| 9 | 1:04–1:12 | Clean plate → **FUREVER / PLAY NOW** |
+
 ```bash
 python3 furever/anime/build_flow_teaser.py
 ```
@@ -118,7 +132,7 @@ shots it doesn't have to share with a continuous take.
 
 | File | What it's for |
 | --- | --- |
-| `out/FLOW_PROMPTS.txt` | **Google Flow / Veo build — 5 clips, negative field, workflow** |
+| `out/FLOW_PROMPTS.txt` | **Google Flow / Veo build — 9 clips, negative field, end-card spec** |
 | [`build_flow_teaser.py`](build_flow_teaser.py) | The Flow builder |
 | `out/ALL_PROMPTS.txt` | All 8 prompts for other generators, plus workflow and VO |
 | [`build_teaser_40.py`](build_teaser_40.py) | The 40s beat-synced teaser builder |
