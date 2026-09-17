@@ -17,11 +17,15 @@ WHY THE EARLIER PROMPTS FAILED ON FLOW, AND WHAT CHANGED
      a compound move. Every clip now has ONE camera move and an explicit
      COMPOSITION line stating the subject stays centred and fully in frame.
 
-  4. Prompts are ~1,200 characters instead of ~3,000. Long prompts dilute on
-     Veo and the later instructions get dropped.
+  4. Restructured into the order Veo reads best, so the instructions that
+     matter sit near the front. Prompts still run 2,200-3,000 characters
+     because the no-music / no-voice block is deliberately verbose - that
+     explicitness is what stops Veo scoring the clip and picking its own
+     narrator. If Veo starts dropping later instructions, shorten that block
+     FIRST, once you have confirmed a few clips come back silent.
 
-  5. Structured into the order Veo reads best:
-     SUBJECT / ACTION / SCENE / CAMERA / COMPOSITION / LIGHTING / STYLE / AUDIO.
+  5. Section order: SUBJECT / ACTION / SCENE / CAMERA / COMPOSITION /
+     LIGHTING / STYLE / AUDIO.
 
 HOW TO RUN IT IN FLOW
 
@@ -121,9 +125,10 @@ AUDIO IS NOT GENERATED. READ THIS.
 ##############################################################################
 #  NEGATIVE PROMPT - paste into Flow's negative field
 #  Do NOT paste this into the prompt body.
+#  Note: 'static shot' is deliberately NOT in this list - clip 9 needs a locked-off camera.
 ##############################################################################
 
-blurry, low quality, low resolution, 3D render, CGI, Pixar style, photorealistic, live action, plastic texture, western cartoon, chibi, deformed anatomy, extra limbs, extra tails, malformed paws, melting face, morphing features, warped eyes, mismatched eye colour, human face on an animal, text, letters, captions, subtitles, watermark, signature, logo, user interface, progress bar, letterbox bars, music, background music, soundtrack, score, singing, humming, instruments, speech, narration, voice-over, dialogue, female voice, woman speaking, male voice, child voice, moving mouth, open mouth, talking animal, lip sync, speaking character, singing, subject out of frame, cropped subject, subject leaving frame, empty frame, static shot, slow motion throughout, chromatic aberration, glitch effect, VHS artifacts, light leak overlay, duplicated character, crowd of cats
+blurry, low quality, low resolution, 3D render, CGI, Pixar style, photorealistic, live action, plastic texture, western cartoon, chibi, deformed anatomy, extra limbs, extra tails, malformed paws, melting face, morphing features, warped eyes, mismatched eye colour, human face on an animal, text, letters, captions, subtitles, watermark, signature, logo, user interface, progress bar, letterbox bars, music, background music, soundtrack, score, singing, humming, instruments, speech, narration, voice-over, dialogue, female voice, woman speaking, male voice, child voice, moving mouth, open mouth, talking animal, lip sync, speaking character, singing, subject out of frame, cropped subject, subject leaving frame, blank frame, frozen frame, slow motion throughout, chromatic aberration, glitch effect, VHS artifacts, light leak overlay, duplicated character, crowd of cats
 
 
 ##############################################################################

@@ -14,9 +14,10 @@ This rewrites the teaser for how Veo actually behaves:
   * EXPLICIT FRAMING. Veo needs to be told the subject stays in frame.
   * STRUCTURED SECTIONS. Subject / Action / Scene / Camera / Composition /
     Lighting / Style / Audio, in that order.
-  * NATIVE AUDIO. Veo 3 generates sound from the prompt, so the music is
-    described in the prompt - it drives the energy of the motion.
-  * SHORTER. ~1,200 characters, not 3,000. Long prompts dilute on Veo.
+  * NO GENERATED MUSIC OR VOICE. Veo mixes its own score and its own chosen
+    narrator into one track you cannot unmix. Prompts ask for diegetic sound
+    effects only; music and VO are laid over in the edit.
+  * SHORTER than the generic build. Long prompts dilute on Veo.
 
     python3 build_flow_teaser.py
 
@@ -39,7 +40,7 @@ NEGATIVE_FIELD = (
     "animal, text, letters, captions, subtitles, watermark, signature, logo, "
     "user interface, progress bar, letterbox bars, music, background music, soundtrack, score, singing, humming, instruments, speech, narration, voice-over, dialogue, female voice, woman speaking, male voice, child voice, moving mouth, open mouth, "
     "talking animal, lip sync, speaking character, singing, subject out of "
-    "frame, cropped subject, subject leaving frame, empty frame, static shot, "
+    "frame, cropped subject, subject leaving frame, blank frame, frozen frame, "
     "slow motion throughout, chromatic aberration, glitch effect, VHS artifacts, "
     "light leak overlay, duplicated character, crowd of cats"
 )
@@ -425,11 +426,15 @@ WHY THE EARLIER PROMPTS FAILED ON FLOW, AND WHAT CHANGED
      a compound move. Every clip now has ONE camera move and an explicit
      COMPOSITION line stating the subject stays centred and fully in frame.
 
-  4. Prompts are ~1,200 characters instead of ~3,000. Long prompts dilute on
-     Veo and the later instructions get dropped.
+  4. Restructured into the order Veo reads best, so the instructions that
+     matter sit near the front. Prompts still run 2,200-3,000 characters
+     because the no-music / no-voice block is deliberately verbose - that
+     explicitness is what stops Veo scoring the clip and picking its own
+     narrator. If Veo starts dropping later instructions, shorten that block
+     FIRST, once you have confirmed a few clips come back silent.
 
-  5. Structured into the order Veo reads best:
-     SUBJECT / ACTION / SCENE / CAMERA / COMPOSITION / LIGHTING / STYLE / AUDIO.
+  5. Section order: SUBJECT / ACTION / SCENE / CAMERA / COMPOSITION /
+     LIGHTING / STYLE / AUDIO.
 
 HOW TO RUN IT IN FLOW
 
@@ -531,6 +536,8 @@ AUDIO IS NOT GENERATED. READ THIS.
 """)
         f.write(rule + "\n#  NEGATIVE PROMPT - paste into Flow's negative field\n")
         f.write("#  Do NOT paste this into the prompt body.\n")
+        f.write("#  Note: 'static shot' is deliberately NOT in this list - clip 9 "
+                "needs a locked-off camera.\n")
         f.write(rule + "\n\n")
         f.write(NEGATIVE_FIELD + "\n\n\n")
 
